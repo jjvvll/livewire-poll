@@ -3,7 +3,7 @@
 namespace App\Livewire;
 
 use Livewire\Component;
-
+use App\Models\Poll;
 class CreatePoll extends Component
 {
     public $title;
@@ -21,6 +21,23 @@ class CreatePoll extends Component
     public function removeOption($index){
         unset($this->options[$index]); //remove element
         $this->options = array_values($this->options) ; //make array continuous again
+    }
+
+    public function createPoll(){
+
+        Poll::create([
+            'title' => $this->title
+        ])->options()->createMany(
+            collect($this->options)
+            ->map(fn ($option) => ['name' => $option])
+            ->all()
+        );
+
+        // foreach($this->options as $optionName){
+        //     $poll->options()->create(['name'=> $optionName]);
+        // }
+
+        $this->reset(['title', 'options']);
     }
 
     public function mount(){
