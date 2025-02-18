@@ -35,7 +35,7 @@ class CreatePoll extends Component
         $this->options = array_values($this->options) ; //make array continuous again
     }
 
-    public function updated($propertyName){
+    public function updated($propertyName){ //live validation, works as we type
         $this->validateOnly($propertyName);
     }
 
@@ -56,7 +56,10 @@ class CreatePoll extends Component
         // }
 
         $this->reset(['title', 'options']);
+
+        $this->dispatch('pollCreated');
     }
+
 
     public function mount(){
         //can be used to initialize the values of properties , will only be called once
