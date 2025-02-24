@@ -18,7 +18,7 @@ class Polls extends Component
     }
 
     public function vote(Option $option){
-       // $option = \App\Models\Option::findOrFail($optionId);//
+       // $option = \App\Models\Option::findOrFail($optionId);/////
         $option->votes()->create(); //vote automatically gets associated with option//////
     }
 }
